@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programa de Reposicionamento Estratégico - Vicente</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .video-intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeOut 0.8s ease-in-out 7s forwards;
+        }
+
+        .video-intro iframe {
+            max-width: 70%;
+            max-height: 70vh;
+            width: 100%;
+            height: 100%;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .video-intro video {
+                max-width: 90%;
+                max-height: 60vh;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .overview {
+            padding: 40px;
+            background: #f8f9fa;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .overview h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .deliverables {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .deliverable-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .deliverable-item:hover {
+            transform: translateX(5px);
+        }
+
+        .deliverable-item::before {
+            content: "✓";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .salary-research {
+            padding: 40px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-bottom: 3px solid #667eea;
+        }
+
+        .research-card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 2px solid #667eea;
+        }
+
+        .research-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 20px;
+        }
+
+        .research-icon {
+            font-size: 3.5em;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .research-content h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin: 0 0 5px 0;
+            font-weight: 700;
+        }
+
+        .research-subtitle {
+            color: #555;
+            font-size: 1.3em;
+            margin: 0 0 12px 0;
+            font-weight: 500;
+        }
+
+        .research-details {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .research-tag {
+            background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #667eea;
+            border: 1px solid #667eea;
+        }
+
+        .research-description {
+            color: #555;
+            font-size: 1.05em;
+            line-height: 1.7;
+            margin: 20px 0 25px 0;
+        }
+
+        .research-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.15em;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .research-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
+        }
+
+        .research-button .arrow {
+            font-size: 1.3em;
+            transition: transform 0.3s;
+        }
+
+        .research-button:hover .arrow {
+            transform: translateX(5px);
+        }
+
+        @media (max-width: 768px) {
+            .research-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .research-content h2 {
+                font-size: 1.6em;
+            }
+
+            .research-details {
+                justify-content: center;
+            }
+        }
+
+        .timeline {
+            padding: 40px;
+        }
+
+        .timeline h2 {
+            color: #667eea;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .week-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .week-btn {
+            background: #e9ecef;
+            border: 2px solid transparent;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .week-btn:hover {
+            background: #dee2e6;
+            transform: translateY(-2px);
+        }
+
+        .week-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .week-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .week-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .week-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .week-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .week-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .week-title {
+            font-size: 1.8em;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .role-section {
+            margin-bottom: 25px;
+        }
+
+        .role-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .role-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.3em;
+        }
+
+        .copilot-icon {
+            background: linear-gradient(135deg, #36d1dc 0%, #5b86e5 100%);
+        }
+
+        .granato-icon {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .role-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .role-content ul {
+            list-style: none;
+            margin-left: 55px;
+        }
+
+        .role-content li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .role-content li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 8px;
+        }
+
+        .note strong {
+            color: #856404;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.9em;
+        }
+
+        .footer-brand {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-tagline {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            color: #00d4ff;
+            font-weight: 500;
+        }
+
+        .footer-program {
+            font-size: 0.95em;
+            margin-bottom: 20px;
+            color: #cccccc;
+        }
+
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .footer-contact a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid #00d4ff;
+            border-radius: 25px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .footer-contact a:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .footer-contact {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .week-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .week-number {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+
+            .deliverables {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-content">
+            <img id="splashLogo" 
+                 src="https://i.postimg.cc/6QGZgXTb/nexo-ia-talentos-intro.png" 
+                 alt="NEXO IA TALENTOS" 
+                 class="splash-logo"
+                 onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='block';">
+            
+            <div id="logoFallback" class="logo-fallback" style="display: none;">
+                <div class="fallback-brand">NEXO IA</div>
+                <div class="fallback-subtitle">TALENTOS</div>
+                <div class="fallback-tagline">Ciência Psicológica • Filosofia do Autoconhecimento • Inteligência Artificial</div>
+            </div>
+            
+            <button class="access-button" onclick="enterProgram()">
+                <span class="button-text">Acessar Programa</span>
+                <span class="button-icon">→</span>
+            </button>
+        </div>
+    </div>
+    
+    <style>
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .splash-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .splash-content {
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .splash-logo {
+            max-width: 600px;
+            width: 90%;
+            height: auto;
+            margin-bottom: 50px;
+            animation: float 3s ease-in-out infinite;
+            display: block;
+        }
+
+        .logo-fallback {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .fallback-brand {
+            font-size: 5em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+        }
+
+        .fallback-subtitle {
+            font-size: 3em;
+            font-weight: 700;
+            color: #00d4ff;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+        }
+
+        .fallback-tagline {
+            font-size: 1.3em;
+            color: #ffffff;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        .access-button {
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.3em;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .access-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .access-button:hover::before {
+            left: 100%;
+        }
+
+        .access-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.6);
+        }
+
+        .access-button:active {
+            transform: translateY(-1px);
+        }
+
+        .button-icon {
+            font-size: 1.5em;
+            transition: transform 0.3s;
+        }
+
+        .access-button:hover .button-icon {
+            transform: translateX(5px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .splash-logo {
+                max-width: 350px;
+                margin-bottom: 40px;
+            }
+
+            .fallback-brand {
+                font-size: 3em;
+            }
+
+            .fallback-subtitle {
+                font-size: 2em;
+            }
+
+            .fallback-tagline {
+                font-size: 1em;
+            }
+
+            .access-button {
+                padding: 15px 40px;
+                font-size: 1.1em;
+            }
+        }
+    </style>
+
+    <div class="container" id="mainContent" style="display: none;">
+        <header>
+            <h1>📊 Programa de Reposicionamento Estratégico</h1>
+            <p>Plano Personalizado - Vicente de Paula | 12 Semanas (90 dias)</p>
+            <p style="font-size: 0.95em; opacity: 0.9; margin-top: 10px;">Ciência Psicológica • Filosofia do Autoconhecimento • Inteligência Artificial</p>
+        </header>
+
+        <div class="overview">
+            <h2>🎯 Entregas Principais do Programa</h2>
+            <div class="deliverables">
+                <div class="deliverable-item">Diagnóstico de Carreira e Posicionamento</div>
+                <div class="deliverable-item">Revisão Estratégica de Currículo e LinkedIn</div>
+                <div class="deliverable-item">Preparação para Entrevistas</div>
+                <div class="deliverable-item">Avaliação DISC Completa</div>
+                <div class="deliverable-item">Agente de IA Personalizado (Copiloto NEXO IA)</div>
+                <div class="deliverable-item">Gestão do Pipeline de Vagas</div>
+                <div class="deliverable-item">Suporte por WhatsApp 24/7</div>
+                <div class="deliverable-item">Indicações Confidenciais de Currículo</div>
+                <div class="deliverable-item">Programa Flexível e Adaptável ao Seu Ritmo</div>
+            </div>
+        </div>
+
+        <div class="salary-research">
+            <div class="research-card">
+                <div class="research-header">
+                    <div class="research-icon">📊</div>
+                    <div class="research-content">
+                        <h2>Panorama de Remuneração</h2>
+                        <p class="research-subtitle">Engenharia de Manutenção Mecânica</p>
+                        <div class="research-details">
+                            <span class="research-tag">📍 Foco: Bataguassu, MS</span>
+                            <span class="research-tag">🏭 Setor: Agroindústria (Soja)</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="research-description">
+                    Pesquisa detalhada sobre estrutura salarial, benefícios e fatores de valorização para engenheiros de manutenção mecânica na região estratégica de Bataguassu (MS), polo de processamento e armazenamento de grãos.
+                </p>
+                <a href="https://gemini.google.com/share/d8c19a53f200" 
+                   target="_blank"
+                   class="research-button">
+                    <span>📈</span>
+                    Acessar Pesquisa Completa
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="timeline">
+            <h2>📅 Cronograma Semanal</h2>
+            
+            <div class="week-selector">
+                <button class="week-btn active" onclick="showWeek(1)">Semana 1</button>
+                <button class="week-btn" onclick="showWeek(2)">Semana 2</button>
+                <button class="week-btn" onclick="showWeek(3)">Semana 3</button>
+                <button class="week-btn" onclick="showWeek(4)">Semana 4</button>
+                <button class="week-btn" onclick="showWeek(5)">Semana 5</button>
+                <button class="week-btn" onclick="showWeek(6)">Semana 6</button>
+                <button class="week-btn" onclick="showWeek(7)">Semana 7</button>
+                <button class="week-btn" onclick="showWeek(8)">Semana 8</button>
+                <button class="week-btn" onclick="showWeek(9)">Semana 9</button>
+                <button class="week-btn" onclick="showWeek(10)">Semana 10</button>
+                <button class="week-btn" onclick="showWeek(11)">Semana 11</button>
+                <button class="week-btn" onclick="showWeek(12)">Semana 12</button>
+            </div>
+
+            <!-- Week 1 -->
+            <div class="week-content active" id="week1">
+                <div class="week-card">
+                    <div class="week-header">
+                        <div class="week-number">1</div>
+                        <div class="week-title">Diagnóstico e Confiança</div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon copilot-icon">🤖</div>
+                            <div class="role-title">Copiloto NEXO IA</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Início suave - nada pesado ainda</li>
+                                <li>1 exemplo simples de leitura de vaga</li>
+                                <li>1 case em STAR para você sentir como funciona na prática</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon granato-icon">👤</div>
+                            <div class="role-title">Granato (Estratégia Humana)</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>História, momento e contexto emocional</li>
+                                <li>Objetivo de cadeira e cenário de vida</li>
+                                <li>Rascunho de posicionamento como Gestor de Manutenção</li>
+                                <li>Explicar o plano de 12 semanas e o papel do Copiloto</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon" style="background: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%);">📋</div>
+                            <div class="role-title">Entregas da Sessão 01</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li><strong>Estratégia Gupy:</strong> Currículo robusto e detalhado sempre atualizado para maximizar atratividade na IA interna</li>
+                                <li><strong>Fortalecimento do Resumo Profissional:</strong> Ajustes baseados nas três últimas vagas como referência</li>
+                                <li><strong>Posicionamento Confirmado:</strong> Bagagem técnica suficiente para gestor de manutenção, mesmo sem cargo formal, pois já exercia liderança</li>
+                                <li><strong>Método STAR:</strong> Apresentação e estruturação de respostas fortes para entrevistas (Situação, Tarefa, Ação, Resultado)</li>
+                                <li><strong>Exemplo Prático:</strong> Orientação sobre vaga de consultor na Arauco e como fortalecer currículo para posições técnicas</li>
+                                <li><strong>Próximos Passos Definidos:</strong> Estruturar currículos focados (consultor e gestor), ajustar Gupy, usar agente para análise de vagas</li>
+                                <li><strong>Suporte Contínuo:</strong> Encontros semanais com flexibilidade para entrevistas emergenciais</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 2 -->
+            <div class="week-content" id="week2">
+                <div class="week-card">
+                    <div class="week-header">
+                        <div class="week-number">2</div>
+                        <div class="week-title">Currículo e Primeiros Cases</div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon copilot-icon">🤖</div>
+                            <div class="role-title">Copiloto NEXO IA</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Sugestões de bullets de currículo com base na experiência</li>
+                                <li>Organização dos primeiros cases em STAR</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon granato-icon">👤</div>
+                            <div class="role-title">Granato (Estratégia Humana)</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Decidir o posicionamento do currículo (título, foco, linguagem)</li>
+                                <li>Validar se o que a IA sugeriu realmente te representa</li>
+                                <li>Escolher quais cases serão "âncoras" para entrevistas</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon" style="background: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%);">📋</div>
+                            <div class="role-title">Entregas da Sessão 02</div>
+                        </div>
+                        <div class="role-content">
+                            <div style="margin-top: 20px; padding: 20px; background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-radius: 12px; border-left: 5px solid #4caf50;">
+                                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                                    <span style="font-size: 2em; margin-right: 12px;">🎯</span>
+                                    <h4 style="margin: 0; color: #2e7d32; font-size: 1.2em;">Preparação Emergencial para Entrevista</h4>
+                                </div>
+                                <p style="margin-bottom: 15px; color: #1b5e20; font-weight: 500;">Primeira entrevista logo na Semana 2! O programa se adaptou para garantir preparação completa e estratégica.</p>
+                                <a href="https://docs.google.com/document/d/1qxbwSKnB0VH6iB37WU9seP0eB7XkXurL/edit?usp=sharing&ouid=114403194292671103805&rtpof=true&sd=true" 
+                                   target="_blank"
+                                   style="background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%); color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);"
+                                   onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 6px 16px rgba(76, 175, 80, 0.4)';"
+                                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(76, 175, 80, 0.3)';">
+                                    📄 Acessar: Guia Completo de Preparação para Entrevista
+                                </a>
+                                <div style="margin-top: 15px; padding-top: 15px; border-top: 2px solid rgba(46, 125, 50, 0.2);">
+                                    <p style="margin: 0; font-size: 0.95em; color: #2e7d32;"><strong>✓</strong> Análise detalhada da vaga e empresa</p>
+                                    <p style="margin: 5px 0 0 0; font-size: 0.95em; color: #2e7d32;"><strong>✓</strong> Respostas estruturadas em STAR para perguntas-chave</p>
+                                    <p style="margin: 5px 0 0 0; font-size: 0.95em; color: #2e7d32;"><strong>✓</strong> Estratégias para pontos sensíveis e perguntas difíceis</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 3 -->
+            <div class="week-content" id="week3">
+                <div class="week-card">
+                    <div class="week-header">
+                        <div class="week-number">3</div>
+                        <div class="week-title">Currículo Final, LinkedIn e DISC</div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon copilot-icon">🤖</div>
+                            <div class="role-title">Copiloto NEXO IA</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Refinar resumo profissional e objetivo para diferentes tipos de vagas</li>
+                                <li>Sugerir textos de "Sobre" e "Experiências" para o LinkedIn</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon granato-icon">👤</div>
+                            <div class="role-title">Granato (Estratégia Humana)</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Bater o martelo na versão final do currículo</li>
+                                <li>Ajustar o LinkedIn para ficar coerente com a estratégia</li>
+                                <li>Aplicar/acompanhar o DISC e explicar o propósito da avaliação</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon" style="background: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%);">📋</div>
+                            <div class="role-title">Entregas da Sessão de Mentoria</div>
+                        </div>
+                        <div class="role-content">
+                            <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 10px;">
+                                <a href="https://drive.google.com/uc?export=download&id=1DQYVUmaDZKttbNvQR90lSxk6qxs9F0zJ" 
+                                   style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: transform 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
+                                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.15)';"
+                                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.1)';">
+                                    📄 Relatório DISC 01
+                                </a>
+                                <a href="https://drive.google.com/uc?export=download&id=1nIPZfRoMQp6SWb1cBfNAffcetCd8zpSE" 
+                                   style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: transform 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
+                                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.15)';"
+                                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.1)';">
+                                    📄 Relatório DISC 02
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 4 -->
+            <div class="week-content" id="week4">
+                <div class="week-card">
+                    <div class="week-header">
+                        <div class="week-number">4</div>
+                        <div class="week-title">Devolutiva DISC e Copiloto NEXO IA</div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon copilot-icon">🤖</div>
+                            <div class="role-title">Copiloto NEXO IA</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Ler vaga e fazer análise detalhada</li>
+                                <li>Fazer o depara vaga × perfil</li>
+                                <li>Sugerir ajustes de currículo</li>
+                                <li>Montar respostas em STAR com base nos seus cases</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon granato-icon">👤</div>
+                            <div class="role-title">Granato (Estratégia Humana)</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Devolutiva do DISC: leitura profunda e aplicada</li>
+                                <li>Conectar DISC + trajetória + tipo de empresa/cadeira</li>
+                                <li>Ensinar "como pensar" usando o Copiloto</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 5 -->
+            <div class="week-content" id="week5">
+                <div class="week-card">
+                    <div class="week-header">
+                        <div class="week-number">5</div>
+                        <div class="week-title">Entrevistas com RH / Triagem</div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon copilot-icon">🤖</div>
+                            <div class="role-title">Copiloto NEXO IA</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Simular entrevistas com RH, uma pergunta por vez</li>
+                                <li>Reescrever as respostas em STAR</li>
+                                <li>Treinar respostas sobre: saída, idade, pretensão, mobilidade</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon granato-icon">👤</div>
+                            <div class="role-title">Granato (Estratégia Humana)</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Lapidar o tom das respostas (sem defensividade ou vitimismo)</li>
+                                <li>Ajudar a cuidar da ansiedade em perguntas gatilho</li>
+                                <li>Trazer feedback de mercado: o que pega e o que passa</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 6 -->
+            <div class="week-content" id="week6">
+                <div class="week-card">
+                    <div class="week-header">
+                        <div class="week-number">6</div>
+                        <div class="week-title">Entrevistas com Gestor Técnico</div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon copilot-icon">🤖</div>
+                            <div class="role-title">Copiloto NEXO IA</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Simular entrevistas com gestor de manutenção / gerente industrial</li>
+                                <li>Gerar perguntas técnicas e de liderança</li>
+                                <li>Reorganizar tudo em STAR com foco em indicadores</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon granato-icon">👤</div>
+                            <div class="role-title">Granato (Estratégia Humana)</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Garantir que você não "afunde em detalhe técnico"</li>
+                                <li>Ajustar discurso para mostrar liderança, não só execução</li>
+                                <li>Conectar o case certo para o tipo certo de vaga</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 7 -->
+            <div class="week-content" id="week7">
+                <div class="week-card">
+                    <div class="week-header">
+                        <div class="week-number">7</div>
+                        <div class="week-title">Diretoria + Início Forte do Pipeline</div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon copilot-icon">🤖</div>
+                            <div class="role-title">Copiloto NEXO IA</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Transformar cases em versões para diretoria (impacto em custo, risco, disponibilidade)</li>
+                                <li>Estruturar pipeline simples: planilha de vagas, status e próximos passos</li>
+                                <li>Escrever mensagens para networking e follow-up</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon granato-icon">👤</div>
+                            <div class="role-title">Granato (Estratégia Humana)</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Escolher quais vagas têm mais aderência ao seu momento</li>
+                                <li>Validar se o jeito de se apresentar para diretoria está maduro</li>
+                                <li>Ensinar leitura estratégica de processo seletivo</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 8 -->
+            <div class="week-content" id="week8">
+                <div class="week-card">
+                    <div class="week-header">
+                        <div class="week-number">8</div>
+                        <div class="week-title">Execução Forte: Entrevistas + Pipeline + IA</div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon copilot-icon">🤖</div>
+                            <div class="role-title">Copiloto NEXO IA</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Ajustar currículo para vagas específicas</li>
+                                <li>Simular entrevistas para vagas reais</li>
+                                <li>Sugerir respostas e mensagens para cada etapa do pipeline</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon granato-icon">👤</div>
+                            <div class="role-title">Granato (Estratégia Humana)</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Entrar pesado nas entrevistas reais (pré-jogo e pós-jogo)</li>
+                                <li>Ajudar a interpretar retornos: feedback, silêncio, sinais</li>
+                                <li>Ajustar a estratégia de busca se o mercado mostrar outro caminho</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 9 -->
+            <div class="week-content" id="week9">
+                <div class="week-card">
+                    <div class="week-header">
+                        <div class="week-number">9</div>
+                        <div class="week-title">Aceleração e Fases Finais</div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon copilot-icon">🤖</div>
+                            <div class="role-title">Copiloto NEXO IA</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Simular entrevistas de fases finais (comitês, diretoria)</li>
+                                <li>Ajudar a preparar cases "premium" para apresentações</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon granato-icon">👤</div>
+                            <div class="role-title">Granato (Estratégia Humana)</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Treinar conversas-chave onde entram emoção e decisão</li>
+                                <li>Trabalhar postura, segurança e coerência em momentos críticos</li>
+                                <li>Ajudar a se posicionar como par da liderança, não executor</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 10 -->
+            <div class="week-content" id="week10">
+                <div class="week-card">
+                    <div class="week-header">
+                        <div class="week-number">10</div>
+                        <div class="week-title">Propostas, Decisões e Indicações</div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon copilot-icon">🤖</div>
+                            <div class="role-title">Copiloto NEXO IA</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Organizar prós e contras das propostas em texto</li>
+                                <li>Montar perguntas inteligentes para levar à empresa antes de fechar</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon granato-icon">👤</div>
+                            <div class="role-title">Granato (Estratégia Humana)</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Conversar de igual pra igual sobre vida, dinheiro, família, cidade, futuro</li>
+                                <li>Ajudar a decidir com base em contexto real, não só salário</li>
+                                <li>Ativar indicações confidenciais com a sua rede, se fizer sentido</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 11 -->
+            <div class="week-content" id="week11">
+                <div class="week-card">
+                    <div class="week-header">
+                        <div class="week-number">11</div>
+                        <div class="week-title">Entrada na Nova Cadeira</div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon copilot-icon">🤖</div>
+                            <div class="role-title">Copiloto NEXO IA</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Estruturar planos de 30/60/90 dias</li>
+                                <li>Simular conversas difíceis iniciais (com gestor, time, pares)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon granato-icon">👤</div>
+                            <div class="role-title">Granato (Estratégia Humana)</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Ajustar expectativas: o que é sucesso nos primeiros 3 meses</li>
+                                <li>Evitar a armadilha de querer resolver tudo de uma vez</li>
+                                <li>Orientar sobre leitura de cultura e política interna</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 12 -->
+            <div class="week-content" id="week12">
+                <div class="week-card">
+                    <div class="week-header">
+                        <div class="week-number">12</div>
+                        <div class="week-title">Fechamento ou Replanejamento</div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon copilot-icon">🤖</div>
+                            <div class="role-title">Copiloto NEXO IA</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Registrar aprendizados</li>
+                                <li>Montar plano de desenvolvimento contínuo (técnico e comportamental)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="role-section">
+                        <div class="role-header">
+                            <div class="role-icon granato-icon">👤</div>
+                            <div class="role-title">Granato (Estratégia Humana)</div>
+                        </div>
+                        <div class="role-content">
+                            <ul>
+                                <li>Fechar o ciclo com visão de carreira, não só de vaga</li>
+                                <li>Reforçar o que mudou em você desde a semana 1</li>
+                                <li>Se ainda não houver vaga: redesenhar a rota com maturidade</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="note">
+                        <strong>⚠️ Observação Importante:</strong> Sempre que surgir uma entrevista importante, o plano pode ser ajustado para priorizar a preparação específica para esse processo. O cronograma existe para te dar previsibilidade e clareza, não para engessar o movimento.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <footer>
+            <div class="footer-brand">NEXO IA TALENTOS</div>
+            <div class="footer-tagline">Ciência Psicológica • Filosofia do Autoconhecimento • Inteligência Artificial</div>
+            <div class="footer-program">Programa de Reposicionamento Estratégico</div>
+            
+            <div class="footer-contact">
+                <a href="https://wa.me/5531992414791" target="_blank">
+                    <span>📱</span> WhatsApp: (31) 99241-4791
+                </a>
+                <a href="https://instagram.com/nexoiatalentos" target="_blank">
+                    <span>📸</span> @nexoiatalentos
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Function to enter the program
+        function enterProgram() {
+            const splashScreen = document.getElementById('splashScreen');
+            const mainContent = document.getElementById('mainContent');
+            
+            splashScreen.classList.add('fade-out');
+            
+            setTimeout(() => {
+                splashScreen.style.display = 'none';
+                mainContent.style.display = 'block';
+                mainContent.style.animation = 'fadeIn 0.8s ease-in-out';
+            }, 800);
+        }
+
+        // Week navigation
+        function showWeek(weekNumber) {
+            // Hide all week contents
+            const allWeeks = document.querySelectorAll('.week-content');
+            allWeeks.forEach(week => week.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const allButtons = document.querySelectorAll('.week-btn');
+            allButtons.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected week
+            document.getElementById('week' + weekNumber).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+
+            // Scroll to timeline section
+            document.querySelector('.timeline').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>
